@@ -17,7 +17,6 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     const newProject = req.body;
-
     db
     .insert(newProject)
     .then(projects => {
@@ -27,13 +26,13 @@ router.post('/', (req, res) => {
         res.status(500).json({ error: "Error posting project." })
     });
 });
-
-router.delete('./:id', (req, res) => {
+        
+router.delete('/:id', (req, res) => {
     const {id} = req.params;
     db
     .remove(id)
     .then(deleted => {
-        if(deleted) {
+        if(deleted === 0) {
             res.status(404).json({ error: "Project ID not found." })
         }
         res.status(200).json.end();
@@ -46,6 +45,11 @@ router.delete('./:id', (req, res) => {
 router.put('/:id', (req, res) => {
     const{id} = req.params;
     const project = req.body;
+
+    if(!project.name || !project.description){
+        res.status(400).json({ message: "Please provide name and description."})
+        .end();
+    }
     db
     .update(id, project)
     .then(project => {
