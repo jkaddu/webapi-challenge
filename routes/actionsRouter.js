@@ -48,7 +48,7 @@ router.put('/:id', (req, res) => {
     const{id} = req.params;
     const action = req.body;
 
-    if(!action.description || !action.notes) {
+    if(!action.description || !action.project_id) {
         res.status(404).json({ message: "Please provide description and notes."})
     }
     db

@@ -46,9 +46,8 @@ router.put('/:id', (req, res) => {
     const{id} = req.params;
     const project = req.body;
 
-    if(!project.name || !project.description){
-        res.status(400).json({ message: "Please provide name and description."})
-        .end();
+    if(!project.name || !project.description) {
+        res.status(404).json({ message: "Please provide name and description."})
     }
     db
     .update(id, project)
@@ -62,5 +61,6 @@ router.put('/:id', (req, res) => {
         res.status(500).json({ error: "Project info could not be modified"})
     });
 });
+
 
 module.exports = router;
