@@ -18,7 +18,6 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     const newAction = req.body;
-
     db
     .insert(newAction)
     .then(actions => {
